@@ -26,7 +26,7 @@ namespace exampleservice.AccoutingService.Controller
             int currentAmount = 0;
             if (db.TryGetValue(AccountId, out currentAmount) && currentAmount >= Amount)
             {
-                db[AccountId] = currentAmount - Amount;
+                db[AccountId] = currentAmount + Amount;
                 return Task.FromResult(true);
             }
 
