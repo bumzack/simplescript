@@ -21,7 +21,6 @@ namespace exampleservice.tests.AccountingService.Steps
             int RequestedAmount = 1;
 
             var dataBaseRepositoryMock = new Mock<IAccountServiceDataBaseRepository>();
-            // dataBaseRepositoryMock.Setup(s => s.CreateAccount(AccountId)).ReturnsAsync(AccountId);
             dataBaseRepositoryMock.Setup(s => s.GetAmount(AccountId)).ReturnsAsync(AvailableAmount);
 
             var instanceUnderTest =
@@ -48,7 +47,6 @@ namespace exampleservice.tests.AccountingService.Steps
             int RequestedAmount = 11111;
 
             var dataBaseRepositoryMock = new Mock<IAccountServiceDataBaseRepository>();
-            // dataBaseRepositoryMock.Setup(s => s.CreateAccount(AccountId)).ReturnsAsync(AccountId);
             dataBaseRepositoryMock.Setup(s => s.GetAmount(AccountId)).ReturnsAsync(AvailableAmount);
 
             var instanceUnderTest =
@@ -67,9 +65,6 @@ namespace exampleservice.tests.AccountingService.Steps
             dataBaseRepositoryMock.Verify(s => s.GetAmount(AccountId));
         }
 
-        
-        // TODO: is this test useful?
-        // maybe add another event AccountNotFoundEvent?
         [Test]
         public async Task GetAmount_unknownAccount_should_fail()
         {
@@ -78,11 +73,9 @@ namespace exampleservice.tests.AccountingService.Steps
             int Amount = 1;
 
             var dataBaseRepositoryMock = new Mock<IAccountServiceDataBaseRepository>();
-            // dataBaseRepositoryMock.Setup(s => s.CreateAccount(AccountId)).ReturnsAsync(AccountId);
             dataBaseRepositoryMock.Setup(s => s.GetAmount(ExistingAccountId)).ReturnsAsync(Amount);
 
-            var instanceUnderTest =
-                new CheckBalanceStep(dataBaseRepositoryMock.Object);
+            var instanceUnderTest = new CheckBalanceStep(dataBaseRepositoryMock.Object);
             var context = new WithdrawFromAccountContext
                 {Command = new WithdrawFromCustomerCommand {Amount = Amount, AccountId = RequestedAccountId}};
 

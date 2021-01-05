@@ -2,6 +2,6 @@
 {
     public class CreateAccountCommand
     {
-        public int CustomerId { get; internal set; }
+        public int CustomerId { get; set; }
     }
 }

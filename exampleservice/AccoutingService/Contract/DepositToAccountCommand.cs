@@ -2,7 +2,7 @@
 {
     public class DepositToAccountCommand
     {
-        public int Amount { get; internal set; }
-        public int AccountId { get; internal set; }
+        public int Amount { get;   set; }
+        public int AccountId { get;   set; }
     }
 }

@@ -35,22 +35,18 @@ namespace exampleservice.AccoutingService
             await procedureWithDraw.Value.Execute(context);
             if (context.WasCompensated)
             {
-                // TODO add infos to event?
                 return new CouldNotWithdrawFromCustomerEvent
                 {
                     Amount = command.Amount,
                     AccountId = command.AccountId
                 };
             }
-            else
+
+            return new WithdrawnFromCustomerEvent
             {
-                // TODO add infos to event?
-                return new WithdrawnFromCustomerEvent
-                {
-                    Amount = command.Amount,
-                    AccountId = command.AccountId
-                };
-            }
+                Amount = command.Amount,
+                AccountId = command.AccountId
+            };
         }
 
         public async Task<EventBase> Handle(DepositToAccountCommand command)
@@ -60,22 +56,18 @@ namespace exampleservice.AccoutingService
             await procedureDeposit.Value.Execute(context);
             if (context.WasCompensated)
             {
-                // TODO add infos to event?
-                return new CouldNotWithdrawFromCustomerEvent
+                return new CouldNotDepositToCustomerEvent()
                 {
                     Amount = command.Amount,
                     AccountId = command.AccountId
                 };
             }
-            else
+
+            return new DepositedToCustomerEvent()
             {
-                // TODO add infos to event?
-                return new WithdrawnFromCustomerEvent
-                {
-                    Amount = command.Amount,
-                    AccountId = command.AccountId
-                };
-            }
+                Amount = command.Amount,
+                AccountId = command.AccountId
+            };
         }
 
         public async Task<EventBase> Handle(CreateAccountCommand command)
@@ -85,21 +77,17 @@ namespace exampleservice.AccoutingService
             await procedureCreateAccount.Value.Execute(context);
             if (context.WasCompensated)
             {
-                // TODO add infos to event?
                 return new CouldNotCreateAccountEvent()
                 {
                     CustomerId = command.CustomerId
                 };
             }
-            else
+
+            return new AccountCreatedEvent
             {
-                // TODO add infos to event?
-                return new AccountCreatedEvent
-                {
-                    CustomerId = command.CustomerId,
-                    AccountId = context.NewAccountId
-                };
-            }
+                CustomerId = command.CustomerId,
+                AccountId = context.NewAccountId
+            };
         }
 
         private void VerifyInputArgumentsWithdrawal(WithdrawFromCustomerCommand command)

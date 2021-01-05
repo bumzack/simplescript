@@ -14,8 +14,7 @@ namespace exampleservice.AccoutingService.Steps
 
         protected async override Task<bool> StepSpecificExecute(WithdrawFromAccountContext contextType)
         {
-            int availableAmount = await dataRepository.GetAmount(
-                contextType.Command.AccountId);
+            int availableAmount = await dataRepository.GetAmount(contextType.Command.AccountId);
 
             if (availableAmount < contextType.Command.Amount)
             {
